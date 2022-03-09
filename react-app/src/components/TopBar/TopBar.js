@@ -11,9 +11,6 @@ import './top-bar.scss';
 import { modes } from 'constants/common';
 import { routes } from 'constants/routes';
 
-import ParamLink from 'components/ParamLink/ParamLink';
-// import Overlay from 'components/Overlay/Overlay';
-
 const mapStateToProps = (state, props) => {
   const withMode = props.match.path.includes(':mode');
 
@@ -64,58 +61,10 @@ function TopBar({
               <NavLink to={routes.maps.path(params)}>maps</NavLink>
             </li>
             <li>
-              <NavLink to={routes.mappers.path(params)}>mappers</NavLink>
-            </li>
-            <li>
-              <NavLink to={routes.rankings.path(params)}>rankings</NavLink>
-            </li>
-            <li>
               <NavLink to={routes.faq.path()}>faq</NavLink>
             </li>
           </ul>
         </nav>
-        {withMode && (
-          <nav>
-            <ul>
-              <li>
-                <ParamLink match={match} location={location} params={{ mode: 'osu' }}>
-                  osu
-                </ParamLink>
-              </li>
-              <li>
-                <ParamLink match={match} location={location} params={{ mode: 'mania' }}>
-                  mania
-                </ParamLink>
-              </li>
-              <li>
-                <ParamLink match={match} location={location} params={{ mode: 'taiko' }}>
-                  taiko
-                </ParamLink>
-              </li>
-              <li>
-                <ParamLink match={match} location={location} params={{ mode: 'fruits' }}>
-                  fruits
-                </ParamLink>
-              </li>
-            </ul>
-          </nav>
-        )}
-        {withMapperType && (
-          <nav className="mapper-type">
-            <ul>
-              <li>
-                <ParamLink match={match} location={location} params={{ mapperType: 'pp' }}>
-                  pp mappers
-                </ParamLink>
-              </li>
-              <li>
-                <ParamLink match={match} location={location} params={{ mapperType: 'fav' }}>
-                  quality mappers
-                </ParamLink>
-              </li>
-            </ul>
-          </nav>
-        )}
       </div>
       <div className="spacer" />
       <div className="right-side-block">
@@ -140,8 +89,8 @@ function TopBar({
             </div>
           )}
           <div className="author">
-            <span>contact:</span>
-            <a
+            <span>contact: Hero#0130</span>
+            {/*<a
               href="https://www.reddit.com/message/compose/?to=grumd"
               target="_blank"
               rel="noreferrer noopener"
@@ -157,7 +106,7 @@ function TopBar({
                 alt="osu!"
                 className="icon"
               />
-            </a>
+            </a>*/}
           </div>
           {/* <div className="support">
             <a href="https://www.patreon.com/grumd" target="_blank" rel="noreferrer noopener">

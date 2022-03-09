@@ -1,4 +1,12 @@
-# osu-pps - osu! farm maps
+# scoresaber-pps
+
+An attempt by Hero to convert osu-pps to work with scoresaber.
+
+This project is still very WIP and in the early stages.
+
+I am going to warn anyone who wants to read this code or even try to contribute, grumd said that this code was messy when he finished it. I have turned it from a mess to a full on pile of spaghetti. Please do not take this as my best work because it isn't. The intent for this project was to get it working as fast as possible with the base functionality I wanted. Not to write good or clean code.
+
+# Original Readme:
 
 A [website made by grumd](http://grumd.github.io/osu-pps) with a list of most farmy maps in osu.  
 Supports osu!standard, taiko, mania, fruits.

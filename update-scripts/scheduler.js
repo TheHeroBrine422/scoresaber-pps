@@ -5,8 +5,6 @@ const { modes, DEBUG } = require('./constants');
 const fetchUsersList = require('./fetch-users-list');
 const fetchMapsForUsers = require('./fetch-beatmaps-for-users');
 const fetchMapInfo = require('./fetch-map-info');
-const calculateTopMappers = require('./top-mappers');
-const calculateRankings = require('./rankings');
 const organizeData = require('./organize-data');
 
 let jobIsRunning = false;
@@ -16,8 +14,6 @@ const updateModeData = (mode = modes.osu) => {
     .then(() => fetchUsersList(mode))
     .then(() => fetchMapsForUsers(mode))
     .then(() => fetchMapInfo(mode))
-    .then(() => calculateRankings(mode))
-    .then(() => calculateTopMappers(mode))
     .then(() => organizeData(mode))
     .then(() => {
       if (!DEBUG) {
@@ -40,9 +36,6 @@ const job = () => {
   jobIsRunning = true;
   return Promise.resolve()
     .then(() => updateModeData(modes.osu))
-    .then(() => updateModeData(modes.mania))
-    .then(() => updateModeData(modes.taiko))
-    .then(() => updateModeData(modes.fruits))
     .then(() => {
       console.log('Finished an updater cron job');
       jobIsRunning = false;

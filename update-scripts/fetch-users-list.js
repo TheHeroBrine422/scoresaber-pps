@@ -8,9 +8,15 @@ const axios = require('./axios');
 const { DEBUG } = require('./constants');
 const { uniq, delay, files, writeFileSync } = require('./utils');
 
+//const getUsersUrl = (modeText, page, country) =>
+//  `https://osu.ppy.sh/rankings/${modeText}/performance?page=${page}` +
+//  (country && !DEBUG ? `&country=${country}` : '');
+
+
 const getUsersUrl = (modeText, page, country) =>
-  `https://osu.ppy.sh/rankings/${modeText}/performance?page=${page}` +
-  (country && !DEBUG ? `&country=${country}` : '');
+  `https://scoresaber.com/api/players?page=${page}` +
+  (country && !DEBUG ? `&countries=${country}` : '');
+
 
 let idsList = [];
 let countriesList = [];
@@ -45,21 +51,11 @@ const startFetchingPages = (modeText, page, country) => {
 };
 
 const savePage = (modeText, data, page, country) => {
-  const $ = cheerio.load(data);
-  const users = $('.ranking-page-table__row')
-    .map((index, element) => {
-      const tableRow = $(element);
-      const userLink = tableRow.find('.ranking-page-table__user-link-text');
-      return {
-        name: userLink.text().trim(),
-        id: userLink.attr('data-user-id'),
-        pp: parseInt(
-          tableRow.find('.ranking-page-table__column--focused').text().replace(/[,.]/g, '').trim(),
-          10
-        ),
-      };
-    })
-    .get();
+  let users = []
+  for (let i = 0; i < data.players.length; i++) {
+    users.push({name: data.players[i].name, id: data.players[i].id, pp: data.players[i].pp})
+  }
+  console.log(users)
   const filteredUsers =
     countriesList.indexOf(country) > 50
       ? users.filter((user) => user.pp > 6000) // for bottom 100 countries we only get top 12k rank people (>6000pp)

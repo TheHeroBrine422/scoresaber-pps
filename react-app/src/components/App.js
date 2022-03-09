@@ -7,9 +7,6 @@ import './App.scss';
 
 import TopBar from 'components/TopBar/TopBar';
 import Table from 'components/Table/Table';
-import TopMappers from 'components/TopMappers/TopMappers';
-import FavMappers from 'components/FavMappers/FavMappers';
-import Rankings from 'components/Rankings/Rankings';
 import Faq from 'components/Faq/Faq';
 
 import { isMobile } from 'utils/browser';
@@ -32,40 +29,6 @@ function ModeComponent({ match }) {
           <>
             <TopBar match={match} />
             <Table match={match} />
-          </>
-        )}
-      />
-      <Route
-        path={`${match.path}/mappers`}
-        render={({ match }) => (
-          <>
-            <Route
-              exact
-              path={`${match.path}`}
-              render={({ match }) => <Redirect to={`${match.url}/pp`} />}
-            />
-            <Route
-              path={`${match.path}/:mapperType(pp|fav)`}
-              render={({ match }) => (
-                <>
-                  <TopBar match={match} showMappersMenu />
-                  {match.params.mapperType === 'pp' ? (
-                    <TopMappers match={match} />
-                  ) : (
-                    <FavMappers match={match} />
-                  )}
-                </>
-              )}
-            />
-          </>
-        )}
-      />
-      <Route
-        path={`${match.path}/rankings`}
-        render={({ match }) => (
-          <>
-            <TopBar match={match} />
-            <Rankings match={match} />
           </>
         )}
       />

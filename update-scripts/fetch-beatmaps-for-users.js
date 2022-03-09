@@ -14,10 +14,9 @@ const {
   writeFileSync,
 } = require('./utils');
 
-const apikey = JSON.parse(fs.readFileSync('./config.json')).apikey;
-
 const getUrl = (userId, modeId, limit) =>
-  `https://osu.ppy.sh/api/get_user_best?k=${apikey}&u=${userId}&limit=${limit}&type=id&m=${modeId}`;
+  `https://scoresaber.com/api/player/${userId}/scores?limit=${limit}`
+
 const getUniqueMapId = (score) => `${score.beatmap_id}_${score.enabled_mods}`;
 const getMagnitudeByIndex = (x) => Math.pow(Math.pow(x - 100, 2) / 10000, 20); // ((x-100)^2/10000)^20
 
@@ -90,7 +89,7 @@ const fetchUser = ({ userId, modeId, shouldRecordScores }) => {
     .then(({ data }) => {
       if (shouldRecordScores) {
         // Recording as one string for compression sake
-        usersMaps[userId] = data && data.map((d) => `${d.beatmap_id}_${d.enabled_mods}_${d.pp}`);
+        usersMaps[userId] = data && data.map((d) => `${d.beatmap_id}_${d.enabled_mods}_${d.pp}`); // TODO: I don't understand this line of code at all but it probably needs to be changed
         usersMapsDate[userId] = Math.floor(Date.now() / 1000 / 60); // unix minutes
       }
       recordData(data, userId);
